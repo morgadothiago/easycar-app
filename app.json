@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "easycar-app",
+    "name": "EasyCar",
     "slug": "easycar-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -20,7 +20,12 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ],
+      "package": "com.thiago_morgado.easycarapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -32,6 +37,11 @@
           "locationAlwaysAndWhenInUsePermission": "Permitir que o $(PRODUCT_NAME) use sua localização sempre e enquanto estiver em uso."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "461eb735-6806-479a-9861-87a81e8b5adf"
+      }
+    }
   }
 }

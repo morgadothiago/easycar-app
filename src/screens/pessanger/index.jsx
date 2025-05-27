@@ -1,4 +1,5 @@
 import {
+  Alert,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -18,24 +19,50 @@ import * as Location from "expo-location";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { LoadingMap } from "../../components/LoadingMap";
 
+import Linking from "expo-linking";
+
+import { useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+
 function Passenger(props) {
   const [myLocation, setMyLocation] = useState(null);
 
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        console.log("Permissão de localização negada");
-        return;
-      }
+  useFocusEffect(
+    useCallback(() => {
+      const requestLocation = async () => {
+        const { status } = await Location.getForegroundPermissionsAsync();
 
-      let location = await Location.getCurrentPositionAsync({});
-      setMyLocation({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-      });
-    })();
-  }, []);
+        if (status !== "granted") {
+          const { status: newStatus } =
+            await Location.requestForegroundPermissionsAsync();
+
+          if (newStatus !== "granted") {
+            Alert.alert(
+              "Permissão necessária",
+              "Você precisa permitir o acesso à localização para usar o app.",
+              [
+                { text: "Cancelar", style: "cancel" },
+                {
+                  text: "Abrir configurações",
+                  onPress: () => Linking.openSettings(),
+                },
+              ]
+            );
+            return;
+          }
+        }
+
+        const location = await Location.getCurrentPositionAsync({});
+        setMyLocation({
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+        });
+      };
+      // Check if location services are enabled
+
+      requestLocation();
+    }, [myLocation])
+  );
 
   return (
     <>
