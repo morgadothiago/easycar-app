@@ -45,8 +45,16 @@ export default function AppRouter() {
         component={Perfil}
         options={{
           headerShadowVisible: false,
-          headerTitle: "",
-          headerTransparent: true,
+          headerTitle: "Perfil",
+          headerTransparent: false,
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontSize: 16,
+            fontWeight: "bold",
+          },
+          headerStyle: {
+            backgroundColor: "#F7D600",
+          },
         }}
       />
     </Stack.Navigator>

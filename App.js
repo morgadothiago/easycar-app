@@ -4,11 +4,7 @@ import Routes from "./src/routes";
 export default function App() {
   return (
     <>
-      <StatusBar
-        backgroundColor={"transparent"}
-        barStyle={"light-content"}
-        translucent
-      />
+      <StatusBar barStyle={"light-content"} />
       <Routes />
     </>
   );

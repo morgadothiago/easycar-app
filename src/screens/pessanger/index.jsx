@@ -66,7 +66,7 @@ function Passenger(props) {
 
   return (
     <>
-      <StatusBar backgroundColor={"#000"} />
+      <StatusBar backgroundColor={"transparent"} translucent={false} />
       <SafeAreaView
         style={[styles.container, { backgroundColor: "#000", flex: 1 }]}
       >
