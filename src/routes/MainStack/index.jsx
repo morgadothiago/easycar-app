@@ -3,11 +3,18 @@ import Passenger from "../../screens/pessanger";
 import Drive from "../../screens/drive";
 import Home from "../../screens/home";
 
+import ProfileButton from "../../components/Perfil";
+import Perfil from "../../screens/Perfil";
+
 const Stack = createNativeStackNavigator();
 
 export default function AppRouter() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={({ navigation }) => ({
+        headerRight: () => <ProfileButton navigation={navigation} />,
+      })}
+    >
       <Stack.Screen
         name="Home"
         component={Home}
@@ -27,6 +34,15 @@ export default function AppRouter() {
       <Stack.Screen
         name="Drive"
         component={Drive}
+        options={{
+          headerShadowVisible: false,
+          headerTitle: "",
+          headerTransparent: true,
+        }}
+      />
+      <Stack.Screen
+        name="Perfil"
+        component={Perfil}
         options={{
           headerShadowVisible: false,
           headerTitle: "",
