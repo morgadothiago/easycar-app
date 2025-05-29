@@ -4,11 +4,11 @@
     "slug": "easycar-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/ios-dark.png",
+    "icon": "./assets/ios-light.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/ios-light.png",
       "resizeMode": "contain",
       "backgroundColor": "#f7d600"
     },
