@@ -4,11 +4,7 @@
     "slug": "easycar-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": {
-      "dark": "./assets/icon-dark.png",
-      "light": "./assets/icon-light.png",
-      "tinted": "./assets/icon-tinted.png"
-    },
+    "icon": "./assets/ios-dark.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
@@ -24,12 +20,10 @@
       }
     },
     "android": {
-      "edgetoEdgeEnabled": true,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "monochromeImage": "./assets/adaptive-icon.png",
+        "monochromeImage": "./assets/adaptive-icon.png"
       },
-      "edgeToEdgeEnabled": true,
       "permissions": [
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION",

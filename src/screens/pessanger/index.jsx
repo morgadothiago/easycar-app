@@ -10,21 +10,19 @@ import {
   View,
 } from "react-native";
 import Button from "../../components/Button";
-import MapView, { Marker, PROVIDER_DEFAULT } from "react-native-maps";
+
 import { styles } from "./styles.js";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import icons from "../../constants/icons.js";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Location from "expo-location";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { LoadingMap } from "../../components/LoadingMap";
-
 import Linking from "expo-linking";
-
-import { useCallback } from "react";
 import { useFocusEffect } from "@react-navigation/native";
+import MapView, { PROVIDER_DEFAULT, Marker } from "react-native-maps";
 
-function Passenger(props) {
+function Passenger() {
   const [myLocation, setMyLocation] = useState(null);
 
   useFocusEffect(
@@ -35,7 +33,6 @@ function Passenger(props) {
         if (status !== "granted") {
           const { status: newStatus } =
             await Location.requestForegroundPermissionsAsync();
-
           if (newStatus !== "granted") {
             Alert.alert(
               "Permissão necessária",
@@ -58,18 +55,15 @@ function Passenger(props) {
           longitude: location.coords.longitude,
         });
       };
-      // Check if location services are enabled
 
       requestLocation();
-    }, [myLocation])
+    }, [])
   );
 
   return (
     <>
-      <StatusBar backgroundColor={"transparent"} translucent={false} />
-      <SafeAreaView
-        style={[styles.container, { backgroundColor: "#000", flex: 1 }]}
-      >
+      <StatusBar backgroundColor={"transparent"} translucent />
+      <SafeAreaView style={[styles.container, { flex: 1 }]}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={{ flex: 1 }}>
             {myLocation ? (
@@ -91,7 +85,6 @@ function Passenger(props) {
                   title="Você está aqui"
                   description="Localização atual"
                   image={icons.location}
-                  style={styles.marker}
                 />
               </MapView>
             ) : (
@@ -104,62 +97,55 @@ function Passenger(props) {
               style={styles.footer}
               behavior={Platform.OS === "ios" ? "padding" : undefined}
             >
-              <View style={styles.footerText}>
-                <Text>Encontre a sua carona</Text>
-              </View>
+              <View style={{ paddingHorizontal: 20, paddingTop: 16 }}>
+                <Text
+                  style={{
+                    color: "#fff",
+                    fontSize: 18,
+                    fontWeight: "bold",
+                    marginBottom: 12,
+                  }}
+                >
+                  Encontre a sua carona
+                </Text>
 
-              <View style={styles.footerFields}>
-                <Text>Origem</Text>
-                <View>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Digite seu destino"
-                    placeholderTextColor={"#fff"}
-                  />
-                  <Ionicons
-                    name="location-outline"
-                    size={24}
-                    color="#F7D600"
-                    style={{ position: "absolute", right: 10, top: 10 }}
-                  />
-                </View>
-              </View>
+                {[
+                  { label: "Origem", icon: "location-outline" },
+                  { label: "Destino", icon: "location-sharp" },
+                  { label: "Motorista", icon: "person-circle-sharp" },
+                ].map(({ label, icon }, idx) => (
+                  <View key={idx} style={{ marginBottom: 12 }}>
+                    <Text style={{ color: "#ccc", marginBottom: 6 }}>
+                      {label}
+                    </Text>
+                    <View style={{ position: "relative" }}>
+                      <TextInput
+                        style={{
+                          backgroundColor: "#1E1E1E",
+                          borderRadius: 12,
+                          paddingVertical: 12,
+                          paddingHorizontal: 16,
+                          paddingRight: 40,
+                          color: "#fff",
+                          fontSize: 16,
+                          borderWidth: 1,
+                          borderColor: "#333",
+                        }}
+                        placeholder={`Digite ${label.toLowerCase()}`}
+                        placeholderTextColor="#888"
+                      />
+                      <Ionicons
+                        name={icon}
+                        size={22}
+                        color="#F7D600"
+                        style={{ position: "absolute", right: 12, top: 12 }}
+                      />
+                    </View>
+                  </View>
+                ))}
 
-              <View style={styles.footerFields}>
-                <Text>Destino</Text>
-                <View>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Digite seu destino"
-                    placeholderTextColor={"#fff"}
-                  />
-                  <Ionicons
-                    name="location-sharp"
-                    size={24}
-                    color="#F7D600"
-                    style={{ position: "absolute", right: 10, top: 10 }}
-                  />
-                </View>
+                <Button text="CONFIRMAR" />
               </View>
-
-              <View style={styles.footerFields}>
-                <Text>Motorista</Text>
-                <View>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Digite seu destino"
-                    placeholderTextColor={"#fff"}
-                  />
-                  <Ionicons
-                    name="person-circle-sharp"
-                    size={24}
-                    color="#F7D600"
-                    style={{ position: "absolute", right: 10, top: 10 }}
-                  />
-                </View>
-              </View>
-
-              <Button text="CONFIRMAR" />
             </KeyboardAvoidingView>
           </View>
         </TouchableWithoutFeedback>

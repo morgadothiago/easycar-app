@@ -1,6 +1,9 @@
-export const styles = {
+import { StyleSheet } from "react-native";
+
+export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#121212",
   },
   map: {
     flex: 1,
@@ -11,24 +14,36 @@ export const styles = {
     height: 60,
   },
   footer: {
-    backgroundColor: "#fff",
-  },
-  footerFields: {
-    margin: 15,
+    backgroundColor: "#121212",
+    paddingBottom: 20,
+    paddingTop: 10,
   },
   footerText: {
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 15,
+    marginBottom: 20,
+  },
+  footerFields: {
+    marginBottom: 16,
+    paddingHorizontal: 20,
   },
   inputContainer: {
     position: "relative",
-    marginBottom: 15,
   },
   input: {
-    backgroundColor: "#000",
+    backgroundColor: "#1E1E1E",
+    borderRadius: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    paddingRight: 44,
+    color: "#FFFFFF",
+    fontSize: 16,
     borderWidth: 1,
-    borderColor: "#cccccc",
-    padding: 10,
+    borderColor: "#333333",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 2,
   },
-};
+});

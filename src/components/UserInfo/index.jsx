@@ -1,27 +1,44 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
-export default function UserInfo({ nome, email, cameraButton, lougOutButton }) {
+export default function UserInfo({
+  nome,
+  email,
+  cameraButton,
+  lougOutButton,
+  image,
+  data,
+}) {
   return (
     <View style={styles.container}>
-      <View style={styles.userInfoContainer}>
-        {/* Área da esquerda: imagem e dados */}
-        <View style={styles.userDataSection}>
-          <TouchableOpacity onPress={cameraButton} style={styles.cameraBox}>
-            <Feather name="user" size={24} color="#4e8ef7" />
+      <View style={styles.card}>
+        {/* Esquerda: Avatar + dados */}
+        <View style={styles.userInfo}>
+          <TouchableOpacity onPress={cameraButton} style={styles.avatar}>
+            {image ? (
+              <Image
+                source={{ uri: image }}
+                style={{ width: 56, height: 56, borderRadius: 28 }}
+              />
+            ) : (
+              <Feather name="user" size={24} color="#fff" />
+            )}
           </TouchableOpacity>
           <View>
-            <Text style={styles.userName}>{nome || "Nome do usuário"}</Text>
-            <Text style={styles.userEmail}>{email || "email@exemplo.com"}</Text>
+            <Text style={styles.name}>:{nome || ":Usuário Exemplo"}</Text>
+            <Text style={styles.email}>{email || ":email@exemplo.com"}</Text>
           </View>
         </View>
 
-        {/* Área da direita: botões */}
-        <View style={styles.buttonsSection}>
-          <TouchableOpacity onPress={cameraButton} style={styles.iconButton}>
+        {/* Direita: Ações */}
+        <View style={styles.actions}>
+          <TouchableOpacity onPress={cameraButton} style={styles.actionBtn}>
             <Feather name="camera" size={20} color="#fff" />
           </TouchableOpacity>
-          <TouchableOpacity onPress={lougOutButton} style={styles.iconButton}>
+          <TouchableOpacity
+            onPress={lougOutButton}
+            style={[styles.actionBtn, styles.logout]}
+          >
             <Feather name="log-out" size={20} color="#fff" />
           </TouchableOpacity>
         </View>
@@ -29,53 +46,61 @@ export default function UserInfo({ nome, email, cameraButton, lougOutButton }) {
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
-    paddingVertical: 15,
+    padding: 20,
+    backgroundColor: "#101010",
   },
-  userInfoContainer: {
+  card: {
+    backgroundColor: "#1A1A1A",
+    borderRadius: 16,
+    padding: 18,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "#f9f9f9",
-    borderRadius: 16,
-    padding: 16,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 4,
+    shadowRadius: 6,
+    elevation: 6,
   },
-  userDataSection: {
+  userInfo: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
+    gap: 14,
   },
-  cameraBox: {
-    height: 50,
-    width: 50,
-    backgroundColor: "#e3e9f7",
-    borderRadius: 12,
+  avatar: {
+    width: 56,
+    height: 56,
+    backgroundColor: "#262626",
+    borderRadius: 28,
     alignItems: "center",
     justifyContent: "center",
   },
-  userName: {
-    fontWeight: "600",
+  name: {
     fontSize: 16,
-    color: "#333",
+    fontWeight: "600",
+    color: "#FFFFFF",
   },
-  userEmail: {
-    fontSize: 14,
-    color: "#777",
+  email: {
+    fontSize: 13,
+    color: "#B0B0B0",
+    marginTop: 2,
   },
-  buttonsSection: {
+  actions: {
     flexDirection: "row",
     gap: 10,
   },
-  iconButton: {
-    backgroundColor: "#4e8ef7",
-    padding: 10,
-    borderRadius: 10,
+  actionBtn: {
+    width: 42,
+    height: 42,
+    backgroundColor: "#6C9CFF",
+    borderRadius: 21,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  logout: {
+    backgroundColor: "#FF5C5C",
   },
 });
